@@ -4,19 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đồ Ăn Vặt Monbay - PISA</title>
+
   <style>
     * {
       box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    
+
     body {
       margin: 0;
       padding: 20px;
       background: #3a4a9f;
       min-height: 100vh;
     }
-    
+
     .container {
       max-width: 500px;
       margin: 0 auto;
@@ -25,218 +26,123 @@
       padding: 30px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
-    
-    .logo {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    
-    .logo img {
-      max-width: 120px;
-      height: auto;
-    }
-    
+
     .app-title {
-      background: linear-gradient(135deg, #3a4a9f 0%, #2d3a7a 100%);
+      background: linear-gradient(135deg, #3a4a9f, #2d3a7a);
       color: white;
       text-align: center;
       padding: 15px;
       border-radius: 15px;
       margin-bottom: 25px;
     }
-    
-    .app-title h1 {
-      color: white;
-      margin: 0;
+
+    .emoji {
+      font-size: 28px;
+    }
+
+    h1 {
+      margin: 5px 0 0;
       font-size: 22px;
     }
-    
-    .app-title .emoji {
-      font-size: 28px;
-      margin-bottom: 5px;
-    }
-    
-    .form-group {
-      margin-bottom: 20px;
-    }
-    
+
     label {
-      display: block;
-      margin-bottom: 8px;
       font-weight: 600;
       color: #3a4a9f;
+      display: block;
+      margin-bottom: 6px;
     }
-    
-    select, input[type="text"], input[type="number"] {
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    input, select {
       width: 100%;
-      padding: 12px 15px;
-      border: 2px solid #e0e0e0;
+      padding: 12px;
       border-radius: 10px;
-      font-size: 16px;
-      transition: border-color 0.3s;
+      border: 2px solid #ddd;
+      font-size: 15px;
     }
-    
-    select:focus, input[type="text"]:focus, input[type="number"]:focus {
+
+    input:focus, select:focus {
       outline: none;
       border-color: #f06292;
     }
-    
+
     .radio-group {
       display: flex;
       gap: 15px;
       margin-bottom: 20px;
     }
-    
+
     .radio-option {
       flex: 1;
       padding: 15px;
-      border: 2px solid #e0e0e0;
       border-radius: 10px;
+      border: 2px solid #ddd;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s;
-      color: #3a4a9f;
       font-weight: 600;
+      color: #3a4a9f;
     }
-    
-    .radio-option:hover {
-      border-color: #f06292;
-    }
-    
+
     .radio-option.selected {
-      border-color: #f06292;
       background: #f06292;
       color: white;
+      border-color: #f06292;
     }
-    
+
     .btn {
       width: 100%;
       padding: 15px;
-      background: linear-gradient(135deg, #f06292 0%, #e91e63 100%);
-      color: white;
       border: none;
       border-radius: 10px;
-      font-size: 18px;
+      background: linear-gradient(135deg, #f06292, #e91e63);
+      color: white;
+      font-size: 17px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 10px;
     }
-    
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(240, 98, 146, 0.4);
+
+    .btn-add {
+      background: linear-gradient(135deg, #4CAF50, #388E3C);
     }
-    
+
     .btn:disabled {
       background: #ccc;
       cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
     }
-    
-    .btn-add {
-      background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
-      margin-bottom: 15px;
-    }
-    
-    .btn-add:hover {
-      box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
-    }
-    
+
     .hidden {
       display: none;
     }
-    
+
     .message {
       padding: 15px;
       border-radius: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       text-align: center;
       font-weight: 600;
     }
-    
-    .message.success {
-      background: #d4edda;
-      color: #155724;
-    }
-    
-    .message.error {
-      background: #f8d7da;
-      color: #721c24;
-    }
-    
-    .footer {
-      text-align: center;
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid #eee;
-    }
-    
-    .footer-text {
-      font-size: 12px;
-      color: #888;
-    }
-    
-    .footer-logo {
-      margin-top: 10px;
-    }
-    
-    .footer-logo img {
-      max-width: 100px;
-      height: auto;
-    }
-    
-    /* Loading spinner */
-    .loading {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid #ccc;
-      border-top-color: #f06292;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    .select-loading {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-    
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    
-    /* Món ăn item */
+
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+
     .mon-item {
-      background: #f8f9fa;
-      border: 2px solid #e0e0e0;
+      border: 2px solid #ddd;
       border-radius: 12px;
       padding: 15px;
       margin-bottom: 15px;
-      position: relative;
+      background: #f9f9f9;
     }
-    
+
     .mon-item-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
     }
-    
-    .mon-item-title {
-      font-weight: 600;
-      color: #3a4a9f;
-      font-size: 16px;
-    }
-    
+
     .btn-remove {
       background: #ff5252;
       color: white;
@@ -245,581 +151,258 @@
       height: 28px;
       border-radius: 50%;
       cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
     }
-    
-    .btn-remove:hover {
-      background: #d32f2f;
-    }
-    
-    .mon-row {
-      display: flex;
-      gap: 10px;
-    }
-    
-    .mon-row .form-group {
-      margin-bottom: 10px;
-    }
-    
-    .mon-row .form-group:first-child {
-      flex: 2;
-    }
-    
-    .mon-row .form-group:last-child {
-      flex: 1;
-    }
-    
+
     .so-luong-wrapper {
       display: flex;
       gap: 10px;
     }
-    
-    .so-luong-wrapper select {
-      flex: 1;
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 12px;
+      color: #777;
     }
-    
-    .so-luong-wrapper input {
-      flex: 1;
+
+    .loading {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #ccc;
+      border-top-color: #e91e63;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 5px;
     }
-    
-    /* Danh sách món đã thêm */
-    .mon-list {
-      margin-bottom: 20px;
-    }
-    
-    .mon-summary {
-      background: #e8f5e9;
-      border: 2px solid #4CAF50;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-    
-    .mon-summary-title {
-      font-weight: 600;
-      color: #2e7d32;
-      margin-bottom: 10px;
-    }
-    
-    .mon-summary-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px 0;
-      border-bottom: 1px dashed #a5d6a7;
-    }
-    
-    .mon-summary-item:last-child {
-      border-bottom: none;
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="app-title">
-      <div class="emoji">🍜🍦🥖</div>
-      <h1>Đồ Ăn Vặt Monbay</h1>
+<div class="container">
+
+  <div class="app-title">
+    <div class="emoji">🍜🍦🥖</div>
+    <h1>Đồ Ăn Vặt UMonbay</h1>
+  </div>
+
+  <div id="message" class="message hidden"></div>
+
+  <!-- Bước 1 -->
+  <label>Bạn là:</label>
+  <div class="radio-group">
+    <div class="radio-option" onclick="chonLoai('hocsinh', this)">🎒 Học sinh</div>
+    <div class="radio-option" onclick="chonLoai('giaovien', this)">👨‍🏫 GV/NV</div>
+  </div>
+
+  <!-- Form học sinh -->
+  <div id="formHocSinh" class="hidden">
+    <div class="form-group">
+      <label>Chọn lớp</label>
+      <select id="selectLop" onchange="loadHocSinh()"></select>
     </div>
-    
-    <div id="message" class="message hidden"></div>
-    
-    <!-- Bước 1: Chọn loại người dùng -->
-    <div id="step1">
-      <label>Bạn là:</label>
-      <div class="radio-group">
-        <div class="radio-option" onclick="chonLoai('hocsinh', this)">
-          🎒 Học sinh
-        </div>
-        <div class="radio-option" onclick="chonLoai('giaovien', this)">
-          👨‍🏫 GV/Nhân viên
-        </div>
-      </div>
+
+    <div id="nhapLopTuDo" class="form-group hidden">
+      <label>Nhập lớp</label>
+      <input id="inputLopHS">
     </div>
-    
-    <!-- Bước 2: Form học sinh -->
-    <div id="formHocSinh" class="hidden">
-      <div class="form-group">
-        <label>Chọn lớp:</label>
-        <select id="selectLop" onchange="loadHocSinh()">
-          <option value="">-- Chọn lớp --</option>
-        </select>
-      </div>
-      
-      <!-- Nhập lớp tự do -->
-      <div id="nhapLopTuDo" class="form-group hidden">
-        <label>Nhập tên lớp của bạn:</label>
-        <input type="text" id="inputLopHS" placeholder="VD: FT 999...">
-      </div>
-      
-      <div id="chonTenWrapper" class="form-group hidden">
-        <label>Chọn tên:</label>
-        <select id="selectTen" onchange="chonTen()">
-          <option value="">-- Chọn lớp trước --</option>
-        </select>
-      </div>
-      
-      <div id="nhapTenTuDo" class="form-group hidden">
-        <label>Nhập tên của bạn:</label>
-        <input type="text" id="inputTenHS" placeholder="Nhập họ tên...">
-      </div>
+
+    <div id="chonTenWrapper" class="form-group hidden">
+      <label>Chọn tên</label>
+      <select id="selectTen" onchange="chonTen()"></select>
     </div>
-    
-    <!-- Bước 2: Form giáo viên/nhân viên -->
-    <div id="formGiaoVien" class="hidden">
-      <div class="form-group">
-        <label>Nhập tên của bạn:</label>
-        <input type="text" id="inputTenGV" placeholder="Nhập họ tên...">
-      </div>
-    </div>
-    
-    <!-- Bước 3: Chọn món -->
-    <div id="formMon" class="hidden">
-      <div class="mon-list" id="monList">
-        <!-- Món đầu tiên -->
-        <div class="mon-item" data-index="0">
-          <div class="mon-item-header">
-            <span class="mon-item-title">🍽️ Món 1</span>
-          </div>
-          <div class="form-group">
-            <label>Tên món:</label>
-            <input type="text" class="input-mon" placeholder="VD: Trà sữa, Bánh mì...">
-          </div>
-          <div class="form-group">
-            <label>Số lượng:</label>
-            <div class="so-luong-wrapper">
-              <select class="select-so-luong" onchange="toggleSoLuongKhac(this)">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="khac">Khác...</option>
-              </select>
-              <input type="number" class="input-so-luong-khac hidden" min="1" placeholder="Nhập số">
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <button class="btn btn-add" onclick="themMon()">➕ Thêm món khác</button>
-      
-      <button class="btn" onclick="datHang()">🛒 Đặt hàng</button>
-    </div>
-    
-    <!-- Footer với logo PISA -->
-    <div class="footer">
-      <div class="footer-text">Sản phẩm của Tổ AI & Tech</div>
-      <div class="footer-logo">
-        <img src="logo.jpg" alt="PISA Logo">
-      </div>
+
+    <div id="nhapTenTuDo" class="form-group hidden">
+      <label>Nhập tên</label>
+      <input id="inputTenHS">
     </div>
   </div>
 
-  <script>
-    // ✅ URL API MONBAY
-    const API_URL = 'https://script.google.com/macros/s/AKfycbwKlDUuD12eGnieHU28xcO55oiS5NspMaq0UR2iD6Ko0fuC0keecnMnHW5DDYDtMsq9/exec';
-    
-    let loaiNguoiDung = '';
-    let selectedLop = '';
-    let selectedMaHV = '';
-    let selectedHoTen = '';
-    let danhSachHS = [];
-    let monCount = 1;
-    
-    // ✅ CACHE để không tải lại
-    let cacheDanhSachLop = null;
-    let cacheHocSinhTheoLop = {};
-    
-    // Chọn loại người dùng
-    function chonLoai(loai, element) {
-      loaiNguoiDung = loai;
-      
-      document.querySelectorAll('.radio-option').forEach(el => el.classList.remove('selected'));
-      element.classList.add('selected');
-      
-      hideMessage();
-      
-      if (loai === 'hocsinh') {
-        document.getElementById('formHocSinh').classList.remove('hidden');
-        document.getElementById('formGiaoVien').classList.add('hidden');
-        document.getElementById('formMon').classList.add('hidden');
-        loadDanhSachLop();
-      } else {
-        document.getElementById('formHocSinh').classList.add('hidden');
-        document.getElementById('formGiaoVien').classList.remove('hidden');
-        document.getElementById('formMon').classList.remove('hidden');
-      }
-    }
-    
-    // Load danh sách lớp từ API (có cache)
-    async function loadDanhSachLop() {
-      const select = document.getElementById('selectLop');
-      
-      // ✅ Nếu đã có cache thì dùng luôn
-      if (cacheDanhSachLop) {
-        renderDanhSachLop(cacheDanhSachLop);
-        return;
-      }
-      
-      select.innerHTML = '<option value=""><span class="loading"></span> Đang tải...</option>';
-      select.classList.add('select-loading');
-      
-      try {
-        const response = await fetch(API_URL + '?action=getListLop');
-        const data = await response.json();
-        
-        // ✅ Lưu cache
-        cacheDanhSachLop = data;
-        renderDanhSachLop(data);
-      } catch (error) {
-        showMessage('Lỗi tải danh sách lớp: ' + error, 'error');
-        select.innerHTML = '<option value="">-- Lỗi tải dữ liệu --</option>';
-        select.classList.remove('select-loading');
-      }
-    }
-    
-    function renderDanhSachLop(data) {
-      const select = document.getElementById('selectLop');
-      select.classList.remove('select-loading');
-      select.innerHTML = '<option value="">-- Chọn lớp --</option>';
-      data.forEach(function(lop) {
-        select.innerHTML += '<option value="' + lop + '">' + lop + '</option>';
-      });
-      // ✅ Thêm option "Không có lớp của tôi"
-      select.innerHTML += '<option value="khongcolop">❌ Không có lớp của tôi</option>';
-    }
-    
-    // Load học sinh theo lớp (có cache)
-    async function loadHocSinh() {
-      const lop = document.getElementById('selectLop').value;
-      const selectTen = document.getElementById('selectTen');
-      const chonTenWrapper = document.getElementById('chonTenWrapper');
-      const nhapLopTuDo = document.getElementById('nhapLopTuDo');
-      const nhapTenTuDo = document.getElementById('nhapTenTuDo');
-      
-      // Reset
-      nhapLopTuDo.classList.add('hidden');
-      nhapTenTuDo.classList.add('hidden');
-      chonTenWrapper.classList.add('hidden');
-      document.getElementById('formMon').classList.add('hidden');
-      
-      if (!lop) {
-        return;
-      }
-      
-      // ✅ Nếu chọn "Không có lớp của tôi"
-      if (lop === 'khongcolop') {
-        nhapLopTuDo.classList.remove('hidden');
-        nhapTenTuDo.classList.remove('hidden');
-        document.getElementById('formMon').classList.remove('hidden');
-        selectedLop = '';
-        selectedMaHV = '';
-        selectedHoTen = '';
-        return;
-      }
-      
-      selectedLop = lop;
-      chonTenWrapper.classList.remove('hidden');
-      
-      // ✅ Nếu đã có cache thì dùng luôn
-      if (cacheHocSinhTheoLop[lop]) {
-        renderDanhSachHS(cacheHocSinhTheoLop[lop]);
-        return;
-      }
-      
-      selectTen.innerHTML = '<option value="">⏳ Đang tải...</option>';
-      selectTen.classList.add('select-loading');
-      
-      try {
-        const response = await fetch(API_URL + '?action=getHocSinhTheoLop&lop=' + encodeURIComponent(lop));
-        const data = await response.json();
-        
-        // ✅ Lưu cache
-        cacheHocSinhTheoLop[lop] = data;
-        renderDanhSachHS(data);
-      } catch (error) {
-        showMessage('Lỗi tải danh sách học sinh: ' + error, 'error');
-        selectTen.classList.remove('select-loading');
-      }
-    }
-    
-    function renderDanhSachHS(data) {
-      const selectTen = document.getElementById('selectTen');
-      selectTen.classList.remove('select-loading');
-      
-      danhSachHS = data;
-      selectTen.innerHTML = '<option value="">-- Chọn tên --</option>';
-      data.forEach(function(hs, index) {
-        selectTen.innerHTML += '<option value="' + index + '">' + hs.hoTen + '</option>';
-      });
-      selectTen.innerHTML += '<option value="khongco">❌ Không có tên tôi</option>';
-    }
-    
-    // Chọn tên học sinh
-    function chonTen() {
-      const value = document.getElementById('selectTen').value;
-      const nhapTenDiv = document.getElementById('nhapTenTuDo');
-      
-      if (value === '') {
-        document.getElementById('formMon').classList.add('hidden');
-        nhapTenDiv.classList.add('hidden');
-        return;
-      }
-      
-      if (value === 'khongco') {
-        nhapTenDiv.classList.remove('hidden');
-        selectedMaHV = '';
-        selectedHoTen = '';
-      } else {
-        nhapTenDiv.classList.add('hidden');
-        const hs = danhSachHS[parseInt(value)];
-        selectedMaHV = hs.maHV;
-        selectedHoTen = hs.hoTen;
-      }
-      
-      document.getElementById('formMon').classList.remove('hidden');
-    }
-    
-    // ✅ Toggle số lượng khác
-    function toggleSoLuongKhac(selectEl) {
-      const inputKhac = selectEl.parentElement.querySelector('.input-so-luong-khac');
-      if (selectEl.value === 'khac') {
-        inputKhac.classList.remove('hidden');
-        inputKhac.focus();
-      } else {
-        inputKhac.classList.add('hidden');
-        inputKhac.value = '';
-      }
-    }
-    
-    // ✅ Thêm món mới
-    function themMon() {
-      monCount++;
-      const monList = document.getElementById('monList');
-      
-      const monItem = document.createElement('div');
-      monItem.className = 'mon-item';
-      monItem.dataset.index = monCount - 1;
-      monItem.innerHTML = `
+  <!-- Form GV -->
+  <div id="formGiaoVien" class="hidden">
+    <div class="form-group">
+      <label>Nhập tên</label>
+      <input id="inputTenGV">
+    </div>
+  </div>
+
+  <!-- Form món -->
+  <div id="formMon" class="hidden">
+    <div id="monList">
+      <div class="mon-item">
         <div class="mon-item-header">
-          <span class="mon-item-title">🍽️ Món ${monCount}</span>
-          <button class="btn-remove" onclick="xoaMon(this)">✕</button>
+          <strong>🍽️ Món 1</strong>
         </div>
-        <div class="form-group">
-          <label>Tên món:</label>
-          <input type="text" class="input-mon" placeholder="VD: Trà sữa, Bánh mì...">
+        <input class="input-mon" placeholder="Tên món">
+        <div class="so-luong-wrapper">
+          <select class="select-so-luong" onchange="toggleSoLuongKhac(this)">
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            <option value="khac">Khác</option>
+          </select>
+          <input type="number" class="input-so-luong-khac hidden" min="1">
         </div>
-        <div class="form-group">
-          <label>Số lượng:</label>
-          <div class="so-luong-wrapper">
-            <select class="select-so-luong" onchange="toggleSoLuongKhac(this)">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="khac">Khác...</option>
-            </select>
-            <input type="number" class="input-so-luong-khac hidden" min="1" placeholder="Nhập số">
-          </div>
-        </div>
-      `;
-      
-      monList.appendChild(monItem);
-      monItem.querySelector('.input-mon').focus();
-    }
-    
-    // ✅ Xóa món
-    function xoaMon(btn) {
-      const monItem = btn.closest('.mon-item');
-      monItem.remove();
-      capNhatSoThuTuMon();
-    }
-    
-    // Cập nhật số thứ tự món
-    function capNhatSoThuTuMon() {
-      const monItems = document.querySelectorAll('.mon-item');
-      monItems.forEach((item, index) => {
-        item.querySelector('.mon-item-title').textContent = `🍽️ Món ${index + 1}`;
-      });
-      monCount = monItems.length;
-    }
-    
-    // ✅ Lấy danh sách món
-    function layDanhSachMon() {
-      const monItems = document.querySelectorAll('.mon-item');
-      const danhSachMon = [];
-      
-      monItems.forEach((item, index) => {
-        const tenMon = item.querySelector('.input-mon').value.trim();
-        const selectSoLuong = item.querySelector('.select-so-luong');
-        const inputSoLuongKhac = item.querySelector('.input-so-luong-khac');
-        
-        let soLuong = 0;
-        if (selectSoLuong.value === 'khac') {
-          soLuong = parseInt(inputSoLuongKhac.value) || 0;
-        } else {
-          soLuong = parseInt(selectSoLuong.value);
-        }
-        
-        if (tenMon && soLuong > 0) {
-          danhSachMon.push({
-            mon: tenMon,
-            soLuong: soLuong
-          });
-        }
-      });
-      
-      return danhSachMon;
-    }
-    
-    // Đặt hàng
-    async function datHang() {
-      let hoTen = '';
-      let lop = '';
-      let maHV = '';
-      
-      if (loaiNguoiDung === 'hocsinh') {
-        const lopValue = document.getElementById('selectLop').value;
-        
-        // ✅ Nếu chọn "Không có lớp của tôi"
-        if (lopValue === 'khongcolop') {
-          lop = document.getElementById('inputLopHS').value.trim();
-          hoTen = document.getElementById('inputTenHS').value.trim();
-          maHV = '';
-          
-          if (!lop) {
-            showMessage('Vui lòng nhập tên lớp!', 'error');
-            return;
-          }
-          if (!hoTen) {
-            showMessage('Vui lòng nhập tên!', 'error');
-            return;
-          }
-        } else {
-          lop = selectedLop;
-          
-          const tenValue = document.getElementById('selectTen').value;
-          if (tenValue === 'khongco') {
-            hoTen = document.getElementById('inputTenHS').value.trim();
-            maHV = '';
-          } else {
-            hoTen = selectedHoTen;
-            maHV = selectedMaHV;
-          }
-          
-          if (!lop) {
-            showMessage('Vui lòng chọn lớp!', 'error');
-            return;
-          }
-          if (!hoTen) {
-            showMessage('Vui lòng chọn hoặc nhập tên!', 'error');
-            return;
-          }
-        }
-      } else {
-        hoTen = document.getElementById('inputTenGV').value.trim();
-        if (!hoTen) {
-          showMessage('Vui lòng nhập tên!', 'error');
-          return;
-        }
-      }
-      
-      // ✅ Lấy danh sách món
-      const danhSachMon = layDanhSachMon();
-      
-      if (danhSachMon.length === 0) {
-        showMessage('Vui lòng nhập ít nhất 1 món với số lượng hợp lệ!', 'error');
-        return;
-      }
-      
-      // ✅ Tạo đơn hàng với nhiều món
-      const donHang = {
-        lop: lop,
-        maHV: maHV,
-        hoTen: hoTen,
-        danhSachMon: danhSachMon
-      };
-      
-      const btn = document.querySelector('.btn:not(.btn-add)');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="loading"></span> Đang gửi...';
-      
-      try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain',
-          },
-          body: JSON.stringify(donHang)
-        });
-        
-        const result = await response.json();
-        
-        btn.disabled = false;
-        btn.textContent = '🛒 Đặt hàng';
-        
-        if (result.success) {
-          showMessage('✅ ' + result.message, 'success');
-          // Reset form món
-          document.getElementById('monList').innerHTML = `
-            <div class="mon-item" data-index="0">
-              <div class="mon-item-header">
-                <span class="mon-item-title">🍽️ Món 1</span>
-              </div>
-              <div class="form-group">
-                <label>Tên món:</label>
-                <input type="text" class="input-mon" placeholder="VD: Trà sữa, Bánh mì...">
-              </div>
-              <div class="form-group">
-                <label>Số lượng:</label>
-                <div class="so-luong-wrapper">
-                  <select class="select-so-luong" onchange="toggleSoLuongKhac(this)">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="khac">Khác...</option>
-                  </select>
-                  <input type="number" class="input-so-luong-khac hidden" min="1" placeholder="Nhập số">
-                </div>
-              </div>
-            </div>
-          `;
-          monCount = 1;
-        } else {
-          showMessage('❌ ' + result.message, 'error');
-        }
-      } catch (error) {
-        btn.disabled = false;
-        btn.textContent = '🛒 Đặt hàng';
-        showMessage('❌ Lỗi kết nối: ' + error, 'error');
-      }
-    }
-    
-    function showMessage(text, type) {
-      const msg = document.getElementById('message');
-      msg.textContent = text;
-      msg.className = 'message ' + type;
-      msg.classList.remove('hidden');
-      setTimeout(hideMessage, 5000);
-    }
-    
-    function hideMessage() {
-      document.getElementById('message').classList.add('hidden');
-    }
-    
-    // ✅ Preload danh sách lớp khi trang mở
-    window.addEventListener('load', function() {
-      fetch(API_URL + '?action=getListLop')
-        .then(res => res.json())
-        .then(data => { cacheDanhSachLop = data; })
-        .catch(() => {});
+      </div>
+    </div>
+
+    <button class="btn btn-add" onclick="themMon()">➕ Thêm món</button>
+    <button class="btn" onclick="datHang()">🛒 Đặt hàng</button>
+  </div>
+
+  <div class="footer">
+    Sản phẩm của Tổ AI & Tech
+  </div>
+
+</div>
+
+<script>
+/* ================= API MỚI ================= */
+const API_URL = 'https://script.google.com/macros/s/AKfycbwKlDUuD12eGnieHU28xcO55oiS5NspMaq0UR2iD6Ko0fuC0keecnMnHW5DDYDtMsq9/exec';
+
+let loaiNguoiDung = '';
+let selectedLop = '';
+let selectedMaHV = '';
+let selectedHoTen = '';
+let danhSachHS = [];
+let monCount = 1;
+let cacheDanhSachLop = null;
+let cacheHocSinhTheoLop = {};
+
+function chonLoai(loai, el) {
+  loaiNguoiDung = loai;
+  document.querySelectorAll('.radio-option').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+
+  formHocSinh.classList.toggle('hidden', loai !== 'hocsinh');
+  formGiaoVien.classList.toggle('hidden', loai !== 'giaovien');
+  formMon.classList.remove('hidden');
+
+  if (loai === 'hocsinh') loadDanhSachLop();
+}
+
+async function loadDanhSachLop() {
+  if (cacheDanhSachLop) return renderLop(cacheDanhSachLop);
+  const res = await fetch(API_URL + '?action=getListLop');
+  const data = await res.json();
+  cacheDanhSachLop = data;
+  renderLop(data);
+}
+
+function renderLop(data) {
+  selectLop.innerHTML = '<option value="">-- Chọn lớp --</option>';
+  data.forEach(l => selectLop.innerHTML += `<option>${l}</option>`);
+  selectLop.innerHTML += '<option value="khongcolop">❌ Không có lớp</option>';
+}
+
+async function loadHocSinh() {
+  const lop = selectLop.value;
+  if (lop === 'khongcolop') {
+    nhapLopTuDo.classList.remove('hidden');
+    nhapTenTuDo.classList.remove('hidden');
+    return;
+  }
+  if (!lop) return;
+
+  selectedLop = lop;
+  chonTenWrapper.classList.remove('hidden');
+
+  if (cacheHocSinhTheoLop[lop]) return renderHS(cacheHocSinhTheoLop[lop]);
+
+  const res = await fetch(API_URL + '?action=getHocSinhTheoLop&lop=' + encodeURIComponent(lop));
+  const data = await res.json();
+  cacheHocSinhTheoLop[lop] = data;
+  renderHS(data);
+}
+
+function renderHS(data) {
+  danhSachHS = data;
+  selectTen.innerHTML = '<option value="">-- Chọn tên --</option>';
+  data.forEach((hs,i)=>selectTen.innerHTML+=`<option value="${i}">${hs.hoTen}</option>`);
+  selectTen.innerHTML += '<option value="khongco">❌ Không có tên</option>';
+}
+
+function chonTen() {
+  const v = selectTen.value;
+  if (v === 'khongco') return nhapTenTuDo.classList.remove('hidden');
+  if (v === '') return;
+  const hs = danhSachHS[v];
+  selectedMaHV = hs.maHV;
+  selectedHoTen = hs.hoTen;
+}
+
+function toggleSoLuongKhac(sel) {
+  sel.nextElementSibling.classList.toggle('hidden', sel.value !== 'khac');
+}
+
+function themMon() {
+  monCount++;
+  monList.insertAdjacentHTML('beforeend', `
+    <div class="mon-item">
+      <div class="mon-item-header">
+        <strong>🍽️ Món ${monCount}</strong>
+        <button class="btn-remove" onclick="this.parentElement.parentElement.remove()">✕</button>
+      </div>
+      <input class="input-mon" placeholder="Tên món">
+      <div class="so-luong-wrapper">
+        <select class="select-so-luong" onchange="toggleSoLuongKhac(this)">
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          <option value="khac">Khác</option>
+        </select>
+        <input type="number" class="input-so-luong-khac hidden" min="1">
+      </div>
+    </div>
+  `);
+}
+
+function layDanhSachMon() {
+  return [...document.querySelectorAll('.mon-item')].map(m=>{
+    const ten = m.querySelector('.input-mon').value.trim();
+    let sl = m.querySelector('.select-so-luong').value;
+    if (sl === 'khac') sl = m.querySelector('.input-so-luong-khac').value;
+    return ten && sl ? {mon:ten, soLuong:+sl} : null;
+  }).filter(Boolean);
+}
+
+async function datHang() {
+  const dsMon = layDanhSachMon();
+  if (!dsMon.length) return showMsg('Vui lòng nhập món!', 'error');
+
+  const payload = {
+    lop: selectedLop,
+    maHV: selectedMaHV,
+    hoTen: selectedHoTen || inputTenGV.value || inputTenHS.value,
+    danhSachMon: dsMon
+  };
+
+  const btn = document.querySelector('.btn:not(.btn-add)');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span> Đang gửi';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'text/plain'},
+      body: JSON.stringify(payload)
     });
-  </script>
+    const r = await res.json();
+    showMsg(r.message, r.success ? 'success' : 'error');
+  } catch {
+    showMsg('Lỗi kết nối!', 'error');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '🛒 Đặt hàng';
+}
+
+function showMsg(t, type) {
+  message.textContent = t;
+  message.className = 'message ' + type;
+  message.classList.remove('hidden');
+  setTimeout(()=>message.classList.add('hidden'),5000);
+}
+</script>
 </body>
 </html>
