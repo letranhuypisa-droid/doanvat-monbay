@@ -1,205 +1,76 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đồ Ăn Vặt Monbay - PISA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đồ Ăn Vặt Monbay - PISA</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif}
+body{margin:0;padding:20px;background:#3a4a9f;min-height:100vh}
+.container{max-width:500px;margin:auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.app-title{background:linear-gradient(135deg,#3a4a9f,#2d3a7a);color:#fff;text-align:center;padding:15px;border-radius:15px;margin-bottom:25px}
+.emoji{font-size:28px}
+h1{margin:5px 0 0;font-size:22px}
+label{font-weight:600;color:#3a4a9f;display:block;margin-bottom:6px}
+.form-group{margin-bottom:18px}
+input,select{width:100%;padding:12px;border-radius:10px;border:2px solid #ddd;font-size:15px}
+input:focus,select:focus{outline:none;border-color:#f06292}
 
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #3a4a9f;
-      min-height: 100vh;
-    }
+/* loading */
+.select-loading{
+  background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    }
+.radio-group{display:flex;gap:15px;margin-bottom:20px}
+.radio-option{flex:1;padding:15px;border-radius:10px;border:2px solid #ddd;text-align:center;cursor:pointer;font-weight:600;color:#3a4a9f}
+.radio-option.selected{background:#f06292;color:#fff;border-color:#f06292}
 
-    .app-title {
-      background: linear-gradient(135deg, #3a4a9f, #2d3a7a);
-      color: white;
-      text-align: center;
-      padding: 15px;
-      border-radius: 15px;
-      margin-bottom: 25px;
-    }
+.btn{width:100%;padding:15px;border:none;border-radius:10px;background:linear-gradient(135deg,#f06292,#e91e63);color:#fff;font-size:17px;font-weight:600;cursor:pointer;margin-top:10px}
+.btn-add{background:linear-gradient(135deg,#4CAF50,#388E3C)}
+.btn:disabled{background:#ccc;cursor:not-allowed}
 
-    .emoji {
-      font-size: 28px;
-    }
+.hidden{display:none}
+.message{padding:15px;border-radius:10px;margin-bottom:15px;text-align:center;font-weight:600}
+.success{background:#d4edda;color:#155724}
+.error{background:#f8d7da;color:#721c24}
 
-    h1 {
-      margin: 5px 0 0;
-      font-size: 22px;
-    }
+.mon-item{border:2px solid #ddd;border-radius:12px;padding:15px;margin-bottom:15px;background:#f9f9f9}
+.mon-item-header{display:flex;justify-content:space-between;align-items:center}
+.btn-remove{background:#ff5252;color:#fff;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer}
+.so-luong-wrapper{display:flex;gap:10px}
 
-    label {
-      font-weight: 600;
-      color: #3a4a9f;
-      display: block;
-      margin-bottom: 6px;
-    }
+.footer{text-align:center;margin-top:25px;font-size:12px;color:#777}
 
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 2px solid #ddd;
-      font-size: 15px;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: #f06292;
-    }
-
-    .radio-group {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .radio-option {
-      flex: 1;
-      padding: 15px;
-      border-radius: 10px;
-      border: 2px solid #ddd;
-      text-align: center;
-      cursor: pointer;
-      font-weight: 600;
-      color: #3a4a9f;
-    }
-
-    .radio-option.selected {
-      background: #f06292;
-      color: white;
-      border-color: #f06292;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #f06292, #e91e63);
-      color: white;
-      font-size: 17px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .btn-add {
-      background: linear-gradient(135deg, #4CAF50, #388E3C);
-    }
-
-    .btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .message {
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    .success { background: #d4edda; color: #155724; }
-    .error { background: #f8d7da; color: #721c24; }
-
-    .mon-item {
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-      background: #f9f9f9;
-    }
-
-    .mon-item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .btn-remove {
-      background: #ff5252;
-      color: white;
-      border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .so-luong-wrapper {
-      display: flex;
-      gap: 10px;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 25px;
-      font-size: 12px;
-      color: #777;
-    }
-
-    .loading {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid #ccc;
-      border-top-color: #e91e63;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-right: 5px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
+.loading{
+  display:inline-block;width:14px;height:14px;border:2px solid #ccc;
+  border-top-color:#e91e63;border-radius:50%;
+  animation:spin .8s linear infinite;margin-right:6px
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
 </head>
 
 <body>
 <div class="container">
-
   <div class="app-title">
     <div class="emoji">🍜🍦🥖</div>
-    <h1>Đồ Ăn Vặt UMonbay</h1>
+    <h1>Đồ Ăn Vặt Monbay</h1>
   </div>
 
   <div id="message" class="message hidden"></div>
 
-  <!-- Bước 1 -->
+  <!-- STEP 1 -->
   <label>Bạn là:</label>
   <div class="radio-group">
-    <div class="radio-option" onclick="chonLoai('hocsinh', this)">🎒 Học sinh</div>
-    <div class="radio-option" onclick="chonLoai('giaovien', this)">👨‍🏫 GV/NV</div>
+    <div class="radio-option" onclick="chonLoai('hocsinh',this)">🎒 Học sinh</div>
+    <div class="radio-option" onclick="chonLoai('giaovien',this)">👨‍🏫 GV/NV</div>
   </div>
 
-  <!-- Form học sinh -->
+  <!-- STEP 2: HỌC SINH -->
   <div id="formHocSinh" class="hidden">
     <div class="form-group">
       <label>Chọn lớp</label>
@@ -222,7 +93,7 @@
     </div>
   </div>
 
-  <!-- Form GV -->
+  <!-- STEP 2: GV -->
   <div id="formGiaoVien" class="hidden">
     <div class="form-group">
       <label>Nhập tên</label>
@@ -230,17 +101,16 @@
     </div>
   </div>
 
-  <!-- Form món -->
+  <!-- STEP 3 -->
   <div id="formMon" class="hidden">
     <div id="monList">
       <div class="mon-item">
-        <div class="mon-item-header">
-          <strong>🍽️ Món 1</strong>
-        </div>
+        <div class="mon-item-header"><strong>🍽️ Món 1</strong></div>
         <input class="input-mon" placeholder="Tên món">
         <div class="so-luong-wrapper">
           <select class="select-so-luong" onchange="toggleSoLuongKhac(this)">
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option>
             <option value="khac">Khác</option>
           </select>
           <input type="number" class="input-so-luong-khac hidden" min="1">
@@ -252,154 +122,162 @@
     <button class="btn" onclick="datHang()">🛒 Đặt hàng</button>
   </div>
 
-  <div class="footer">
-    Sản phẩm của Tổ AI & Tech
-  </div>
-
+  <div class="footer">Sản phẩm của Tổ AI & Tech</div>
 </div>
 
 <script>
-/* ================= API MỚI ================= */
-const API_URL = 'https://script.google.com/macros/s/AKfycbwKlDUuD12eGnieHU28xcO55oiS5NspMaq0UR2iD6Ko0fuC0keecnMnHW5DDYDtMsq9/exec';
+/* ✅ API MONBAY */
+const API_URL='https://script.google.com/macros/s/AKfycbwKlDUuD12eGnieHU28xcO55oiS5NspMaq0UR2iD6Ko0fuC0keecnMnHW5DDYDtMsq9/exec';
 
-let loaiNguoiDung = '';
-let selectedLop = '';
-let selectedMaHV = '';
-let selectedHoTen = '';
-let danhSachHS = [];
-let monCount = 1;
-let cacheDanhSachLop = null;
-let cacheHocSinhTheoLop = {};
+let loaiNguoiDung='',selectedLop='',selectedMaHV='',selectedHoTen='';
+let danhSachHS=[],monCount=1,cacheDanhSachLop=null,cacheHocSinhTheoLop={};
 
-function chonLoai(loai, el) {
-  loaiNguoiDung = loai;
-  document.querySelectorAll('.radio-option').forEach(e => e.classList.remove('selected'));
+function chonLoai(loai,el){
+  loaiNguoiDung=loai;
+  document.querySelectorAll('.radio-option').forEach(e=>e.classList.remove('selected'));
   el.classList.add('selected');
 
-  formHocSinh.classList.toggle('hidden', loai !== 'hocsinh');
-  formGiaoVien.classList.toggle('hidden', loai !== 'giaovien');
-  formMon.classList.remove('hidden');
+  formMon.classList.add('hidden');
+  formHocSinh.classList.toggle('hidden',loai!=='hocsinh');
+  formGiaoVien.classList.toggle('hidden',loai!=='giaovien');
 
-  if (loai === 'hocsinh') loadDanhSachLop();
+  if(loai==='hocsinh') loadDanhSachLop();
+  else formMon.classList.remove('hidden');
 }
 
-async function loadDanhSachLop() {
-  if (cacheDanhSachLop) return renderLop(cacheDanhSachLop);
-  const res = await fetch(API_URL + '?action=getListLop');
-  const data = await res.json();
-  cacheDanhSachLop = data;
-  renderLop(data);
+async function loadDanhSachLop(){
+  const s=selectLop;
+  if(cacheDanhSachLop) return renderLop(cacheDanhSachLop);
+  s.classList.add('select-loading');
+  s.innerHTML='<option>⏳ Đang tải...</option>';
+  const r=await fetch(API_URL+'?action=getListLop');
+  const d=await r.json();
+  cacheDanhSachLop=d;
+  renderLop(d);
 }
 
-function renderLop(data) {
-  selectLop.innerHTML = '<option value="">-- Chọn lớp --</option>';
-  data.forEach(l => selectLop.innerHTML += `<option>${l}</option>`);
-  selectLop.innerHTML += '<option value="khongcolop">❌ Không có lớp</option>';
+function renderLop(d){
+  selectLop.classList.remove('select-loading');
+  selectLop.innerHTML='<option value="">-- Chọn lớp --</option>';
+  d.forEach(l=>selectLop.innerHTML+=`<option>${l}</option>`);
+  selectLop.innerHTML+='<option value="khongcolop">❌ Không có lớp</option>';
 }
 
-async function loadHocSinh() {
-  const lop = selectLop.value;
-  if (lop === 'khongcolop') {
+async function loadHocSinh(){
+  const lop=selectLop.value;
+  formMon.classList.add('hidden');
+  nhapLopTuDo.classList.add('hidden');
+  nhapTenTuDo.classList.add('hidden');
+  chonTenWrapper.classList.add('hidden');
+
+  if(!lop) return;
+  if(lop==='khongcolop'){
     nhapLopTuDo.classList.remove('hidden');
     nhapTenTuDo.classList.remove('hidden');
+    formMon.classList.remove('hidden');
     return;
   }
-  if (!lop) return;
 
-  selectedLop = lop;
+  selectedLop=lop;
   chonTenWrapper.classList.remove('hidden');
 
-  if (cacheHocSinhTheoLop[lop]) return renderHS(cacheHocSinhTheoLop[lop]);
+  if(cacheHocSinhTheoLop[lop]) return renderHS(cacheHocSinhTheoLop[lop]);
 
-  const res = await fetch(API_URL + '?action=getHocSinhTheoLop&lop=' + encodeURIComponent(lop));
-  const data = await res.json();
-  cacheHocSinhTheoLop[lop] = data;
-  renderHS(data);
+  selectTen.classList.add('select-loading');
+  selectTen.innerHTML='<option>⏳ Đang tải...</option>';
+  const r=await fetch(API_URL+'?action=getHocSinhTheoLop&lop='+encodeURIComponent(lop));
+  const d=await r.json();
+  cacheHocSinhTheoLop[lop]=d;
+  renderHS(d);
 }
 
-function renderHS(data) {
-  danhSachHS = data;
-  selectTen.innerHTML = '<option value="">-- Chọn tên --</option>';
-  data.forEach((hs,i)=>selectTen.innerHTML+=`<option value="${i}">${hs.hoTen}</option>`);
-  selectTen.innerHTML += '<option value="khongco">❌ Không có tên</option>';
+function renderHS(d){
+  selectTen.classList.remove('select-loading');
+  danhSachHS=d;
+  selectTen.innerHTML='<option value="">-- Chọn tên --</option>';
+  d.forEach((hs,i)=>selectTen.innerHTML+=`<option value="${i}">${hs.hoTen}</option>`);
+  selectTen.innerHTML+='<option value="khongco">❌ Không có tên</option>';
 }
 
-function chonTen() {
-  const v = selectTen.value;
-  if (v === 'khongco') return nhapTenTuDo.classList.remove('hidden');
-  if (v === '') return;
-  const hs = danhSachHS[v];
-  selectedMaHV = hs.maHV;
-  selectedHoTen = hs.hoTen;
+function chonTen(){
+  const v=selectTen.value;
+  if(!v){formMon.classList.add('hidden');return}
+  if(v==='khongco'){
+    nhapTenTuDo.classList.remove('hidden');
+    formMon.classList.remove('hidden');
+    selectedMaHV='';selectedHoTen='';
+    return;
+  }
+  const hs=danhSachHS[v];
+  selectedMaHV=hs.maHV;
+  selectedHoTen=hs.hoTen;
+  nhapTenTuDo.classList.add('hidden');
+  formMon.classList.remove('hidden');
 }
 
-function toggleSoLuongKhac(sel) {
-  sel.nextElementSibling.classList.toggle('hidden', sel.value !== 'khac');
+function toggleSoLuongKhac(sel){
+  sel.nextElementSibling.classList.toggle('hidden',sel.value!=='khac');
 }
 
-function themMon() {
+function themMon(){
   monCount++;
-  monList.insertAdjacentHTML('beforeend', `
-    <div class="mon-item">
-      <div class="mon-item-header">
-        <strong>🍽️ Món ${monCount}</strong>
-        <button class="btn-remove" onclick="this.parentElement.parentElement.remove()">✕</button>
-      </div>
-      <input class="input-mon" placeholder="Tên món">
-      <div class="so-luong-wrapper">
-        <select class="select-so-luong" onchange="toggleSoLuongKhac(this)">
-          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-          <option value="khac">Khác</option>
-        </select>
-        <input type="number" class="input-so-luong-khac hidden" min="1">
-      </div>
+  monList.insertAdjacentHTML('beforeend',`
+  <div class="mon-item">
+    <div class="mon-item-header">
+      <strong>🍽️ Món ${monCount}</strong>
+      <button class="btn-remove" onclick="this.parentElement.parentElement.remove()">✕</button>
     </div>
-  `);
+    <input class="input-mon" placeholder="Tên món">
+    <div class="so-luong-wrapper">
+      <select class="select-so-luong" onchange="toggleSoLuongKhac(this)">
+        <option>1</option><option>2</option><option>3</option>
+        <option>4</option><option>5</option>
+        <option value="khac">Khác</option>
+      </select>
+      <input type="number" class="input-so-luong-khac hidden" min="1">
+    </div>
+  </div>`);
 }
 
-function layDanhSachMon() {
+function layDanhSachMon(){
   return [...document.querySelectorAll('.mon-item')].map(m=>{
-    const ten = m.querySelector('.input-mon').value.trim();
-    let sl = m.querySelector('.select-so-luong').value;
-    if (sl === 'khac') sl = m.querySelector('.input-so-luong-khac').value;
-    return ten && sl ? {mon:ten, soLuong:+sl} : null;
+    const ten=m.querySelector('.input-mon').value.trim();
+    let sl=m.querySelector('.select-so-luong').value;
+    if(sl==='khac') sl=m.querySelector('.input-so-luong-khac').value;
+    return ten&&sl?{mon:ten,soLuong:+sl}:null;
   }).filter(Boolean);
 }
 
-async function datHang() {
-  const dsMon = layDanhSachMon();
-  if (!dsMon.length) return showMsg('Vui lòng nhập món!', 'error');
+async function datHang(){
+  const ds=layDanhSachMon();
+  if(!ds.length) return showMsg('Vui lòng nhập món!','error');
 
-  const payload = {
-    lop: selectedLop,
-    maHV: selectedMaHV,
-    hoTen: selectedHoTen || inputTenGV.value || inputTenHS.value,
-    danhSachMon: dsMon
+  const payload={
+    lop:selectedLop,
+    maHV:selectedMaHV,
+    hoTen:selectedHoTen||inputTenGV.value||inputTenHS.value,
+    danhSachMon:ds
   };
 
-  const btn = document.querySelector('.btn:not(.btn-add)');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="loading"></span> Đang gửi';
+  const btn=document.querySelector('.btn:not(.btn-add)');
+  btn.disabled=true;
+  btn.innerHTML='<span class="loading"></span> Đang gửi';
 
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: {'Content-Type':'text/plain'},
-      body: JSON.stringify(payload)
-    });
-    const r = await res.json();
-    showMsg(r.message, r.success ? 'success' : 'error');
-  } catch {
-    showMsg('Lỗi kết nối!', 'error');
+  try{
+    const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
+    const j=await r.json();
+    showMsg(j.message,j.success?'success':'error');
+  }catch{
+    showMsg('Lỗi kết nối!','error');
   }
 
-  btn.disabled = false;
-  btn.innerHTML = '🛒 Đặt hàng';
+  btn.disabled=false;
+  btn.innerHTML='🛒 Đặt hàng';
 }
 
-function showMsg(t, type) {
-  message.textContent = t;
-  message.className = 'message ' + type;
+function showMsg(t,type){
+  message.textContent=t;
+  message.className='message '+type;
   message.classList.remove('hidden');
   setTimeout(()=>message.classList.add('hidden'),5000);
 }
